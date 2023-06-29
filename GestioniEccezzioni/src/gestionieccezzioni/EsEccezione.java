@@ -1,5 +1,6 @@
 package gestionieccezzioni;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class EsEccezione {
@@ -13,22 +14,40 @@ public class EsEccezione {
      */
     public static void main(String[] args) {
 
+        System.out.println("Inserisci la lunghezza");
+
         Scanner in = new Scanner(System.in);
 
-        int[] numeri = new int[0];
+        int lung = in.nextInt();
+        in.nextLine();
+        int[] arr = new int[lung];
+        int i = 0;
 
-        System.out.println("Inserisci numeri:");
-        for (int i = 0; i < numeri.length; i++) {
-             numeri[i] = in.nextInt();
-               System.out.println("Risulato\n" + numeri[i]);
+        while (true) {
+            System.out.println("Inserisci un numero, fine per uscire");
+            String val = in.nextLine();
+            if (val.equalsIgnoreCase("fine")) {
+                break;
+            }
+
+            try {
+
+                arr[i] = Integer.parseInt(val);
+                i++;
+                System.out.println(Arrays.toString(arr));
+            } catch (NumberFormatException e) {
+                System.out.println("non è un numero");
+
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Hai srperato i limiti dell'array");
+                System.out.println(Arrays.toString(arr));
+                arr = new int[lung];//qua azzeriamo l'array
+                i = 0;
+            } catch (Exception e) {
+                System.out.println("Errore generico " + e.getMessage());
+            }
         }
-        
-     
-       
-            
-        }
-
-
+        System.out.println(Arrays.toString(arr));
     }
 
 }
